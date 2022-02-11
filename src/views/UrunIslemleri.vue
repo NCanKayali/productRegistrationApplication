@@ -54,26 +54,37 @@ export default {
   methods: {
     saved() {
       if (
+
         this.productsList.productName &&
         this.productsList.productPiece &&
         this.productsList.productPrice &&
         this.productsList.productDescription
-      )
-      {
-
-        if(this.productsList.productPiece && this.productsList.productPrice > 0 )
-        {
-          this.$store.commit("setProductsList", this.productsList);
-        }
         
-        else{
-          confirm("ADET VE FİYAT BÖLÜMLERİ RAKAM OLMALI")
+      ) {
+        if (
+
+          this.productsList.productPiece &&
+          this.productsList.productPrice > 0
+
+        ) {
+          this.$store.commit("setProductsList", {...this.productsList});
+
+          setTimeout(() => {
+            this.resetInput();
+          }, 2000);
+
+        } else {
+          confirm("ADET VE FİYAT BÖLÜMLERİ RAKAM OLMALI");
         }
+      } else {
+        confirm("BOŞ ALAN BIRAKILAMAZ");
       }
-      
-        else{
-        confirm("BOŞ ALAN BIRAKILAMAZ")
-      }
+    },
+    resetInput() {
+      this.productsList.productName = "";
+      this.productsList.productPiece = "";
+      this.productsList.productPrice = "";
+      this.productsList.productDescription = "";
     },
   },
 };
