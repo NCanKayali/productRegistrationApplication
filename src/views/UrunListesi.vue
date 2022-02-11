@@ -25,16 +25,17 @@
           <th>Açıklama</th>
         </tr>
         <tbody>
-          <tr>
+          <tr v-for="(product, index) in hasProduct" :key="index">
             <td>238472847</td>
-            <td>{{ yesOrNo[0].productName }}</td>
-            <td>{{ yesOrNo[0].productPiece }}</td>
-            <td>{{ yesOrNo[0].productPrice }}</td>
-            <td>{{ yesOrNo[0].productDescription }}</td>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productPiece }}</td>
+            <td class="color">{{ product.productPrice }}</td>
+            <td>{{ product.productDescription }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    
   </div>
 </template>
 
@@ -43,16 +44,20 @@ export default {
   data() {
     return {
       showMe: true,
-      yesOrNo: "",
+      hasProduct: "",
     };
   },
   mounted() {
-    if (this.showMe) {
-      this.yesOrNo = this.$store.state.productsList;
+    if (this.$store.state.productsList.length) {
+      this.hasProduct = this.$store.state.productsList;
       this.showMe = false;
-      console.log(this.yesOrNo)
     }
   },
+  computed:{
+    // changeColor(){
+
+    // }
+  }
 };
 </script>
 
