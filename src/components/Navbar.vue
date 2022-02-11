@@ -1,8 +1,8 @@
 <template>
   <div class="nav">
-    <router-link class="menu" to="/">Ürün Listesi</router-link>
-    <router-link class="menu" to="/urun-islemleri">Ürün İşlemleri</router-link>
-    <router-link class="menu" to="/urun-cikisi">Ürün Çıkışı</router-link>
+    <router-link class="menu" active-class="ticking" exact to="/">Ürün Listesi</router-link>
+    <router-link class="menu" active-class="ticking" to="/urun-islemleri">Ürün İşlemleri</router-link>
+    <router-link class="menu" active-class="ticking" to="/urun-cikisi">Ürün Çıkışı</router-link>
   </div>
 </template>
 
@@ -21,9 +21,13 @@ export default {
 }
 
 .menu {
-  color: white;
+  color: rgb(173, 173, 173);
   text-decoration: none;
   font-size: 18px;
   margin-left: 15px;
+}
+
+.ticking{
+  color:rgb(255, 255, 255)
 }
 </style>
