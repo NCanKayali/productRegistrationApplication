@@ -1,6 +1,6 @@
 <template>
   <div class="urun-listesi">
-    <div v-if="showMe" class="no-products">
+    <div class="no-products">
       <h2>Ürün Listesi</h2>
       <div class="line"></div>
       <div class="content">
@@ -12,8 +12,10 @@
         </p>
       </div>
     </div>
-
-    <div v-else class="list-table">
+    {{ getProductList }}
+    {{this.$store.getters.getMyName}}
+    gkgjh
+    <div class="list-table">
       <h2>Ürün Listesi</h2>
       <div class="line"></div>
       <table>
@@ -25,7 +27,7 @@
           <th>Açıklama</th>
         </tr>
         <tbody>
-          <tr v-for="(product, index) in hasProduct" :key="index">
+          <tr v-for="(product, index) in getProductList" :key="index">
             <td>238472847</td>
             <td>{{ product.productName }}</td>
             <td>{{ product.productPiece }}</td>
@@ -35,11 +37,11 @@
         </tbody>
       </table>
     </div>
-    
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   // data() {
   //   return {
@@ -53,11 +55,9 @@ export default {
   //     this.showMe = false;
   //   }
   // },
-  // computed:{
-  //   // changeColor(){
-
-  //   // }
-  // }
+  computed: {
+    ...mapGetters(["getProductList"]),
+  },
 };
 </script>
 
@@ -106,22 +106,24 @@ p {
   margin-top: 50px;
   padding: 15px 20px 25px 20px;
 }
-table{
-width: 700px;
-text-align: center;
+table {
+  width: 700px;
+  text-align: center;
 }
 
-table,th, td{
+table,
+th,
+td {
   border: 1px solid rgb(172, 172, 172);
   border-collapse: collapse;
 }
 
-th{
+th {
   padding: 10px;
   text-align: left;
 }
 
-td{
+td {
   padding: 15px;
   background-color: #c7c7c7;
 }
