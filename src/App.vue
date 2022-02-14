@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <NavBar/>
-    <router-view ></router-view>
-    <Footer/>
+    <NavBar />
+    <router-view></router-view>
+    <Footer />
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
     NavBar,
     Footer,
   },
+  created() {
+    this.$store.dispatch("getTradeResult");
+  },
 };
 </script>
 
@@ -28,6 +31,5 @@ body {
   background-color: #929292;
   /* background-color: #b6b4b4; */
   height: 650px;
-
 }
 </style>
