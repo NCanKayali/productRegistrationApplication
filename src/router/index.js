@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 
-import UrunListesi from "../views/UrunListesi";
+import UrunListesi from "../views/ProductList";
 
 const routes = [
   {
@@ -17,7 +17,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "urun islemleri" */ '../views/UrunIslemleri.vue')
+    component: () => import(/* webpackChunkName: "urun islemleri" */ '../views/ProductPurchase.vue')
   },
   {
     path: '/urun-cikisi',
@@ -25,7 +25,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "urun cikisi" */ '../views/UrunCikisi.vue')
+    component: () => import(/* webpackChunkName: "urun cikisi" */ '../views/ProductSell.vue')
   },
   {
     path: "*",
