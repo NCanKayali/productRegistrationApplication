@@ -1,4 +1,4 @@
-# demo
+# Ürün Ekleme Uygulaması
 
 ## Project setup
 ```
