@@ -1,4 +1,5 @@
 import Axios from "axios";
+import router from "../router/index"
 
 
 const state = {
@@ -34,6 +35,7 @@ const actions = {
            };
 
            dispatch("setTradeResult", tradeResult)
+           router.replace("/")
 
     }
 }
