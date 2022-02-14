@@ -6,6 +6,11 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+
+Vue.filter("currency", (value) => {
+  return parseFloat(value).toLocaleString(undefined , {minimumFractionDigits : 2}) + "TL"
+})
+
 new Vue({
   router,
   store,
