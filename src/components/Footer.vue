@@ -4,29 +4,26 @@
     <div class="right">
       <p>
         Alış Tutarı:
-        <span class="red">{{ purchasePrice }} TL</span>
+        <span class="red">{{ getTradeResult.purchase | currency }} TL</span>
       </p>
-      <p>Satış Tutarı: <span class="green">{{}} TL</span></p>
-      <p>Bakiye: <span class="blue">{{}} TL</span></p>
+      <p>
+        Satış Tutarı:
+        <span class="green">{{ getTradeResult.sale | currency }} TL</span>
+      </p>
+      <p>
+        Bakiye:
+        <span class="blue">{{ getTradeResult.balance | currency }} TL</span>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Footer",
   computed: {
-    purchasePrice() {
-      let totalPurchase = 0;
-      const productList = this.$store.state.productsList;
-      productList.forEach((item) => {
-        totalPurchase += item.productPiece * item.productPrice;
-      });
-      return totalPurchase;
-    },
-  },
-  created() {
-    console.log(this.purchasePrice);
+    ...mapGetters(["getTradeResult"]),
   },
 };
 </script>
@@ -47,5 +44,29 @@ export default {
 .right {
   display: flex;
   margin-right: 10px;
+}
+
+.red {
+  background-color: rgb(194, 2, 2);
+  color: white;
+  border-radius: 5px;
+  padding: 0 5px;
+  margin-right: 5px;
+}
+
+.green {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  padding: 0 5px;
+  margin-right: 5px;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+  padding: 0 5px;
+  margin-right: 5px;
 }
 </style>
