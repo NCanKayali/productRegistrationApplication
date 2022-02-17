@@ -4,15 +4,15 @@
     <div class="right">
       <p>
         Alış Tutarı:
-        <span class="red">{{ getTradeResult.purchase | currency }} TL</span>
+        <span class="red">{{ getTradeResult.purchase | currency }}</span>
       </p>
       <p>
         Satış Tutarı:
-        <span class="green">{{ getTradeResult.sale | currency }} TL</span>
+        <span class="green">{{ getTradeResult.sale | currency }}</span>
       </p>
       <p>
         Bakiye:
-        <span class="blue">{{ getTradeResult.balance | currency }} TL</span>
+        <span class="blue">{{ getTradeResult.balance | currency }}</span>
       </p>
     </div>
   </div>
