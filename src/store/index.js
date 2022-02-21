@@ -1,70 +1,87 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Products from "./products"
 import Axios from "axios"
+import product from "./modules/product"
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  modules: {
-    Products
-  },
-
+export const store = new Vuex.Store({
   state: {
-    purchase: 0.0,
-    sale: 0.0,
-    balance: 0.0
-
+    cost: 0,
+    sale: 0,
+    balance: 0,
   },
 
   getters: {
     getTradeResult(state) {
       return {
-        purchase: state.purchase,
+        purchase: state.cost,
         sale: state.sale,
-        balance: state.balance
+        balance: state.balance,
       }
+    },
+    getProduct(){
+      
     }
   },
 
   mutations: {
+    // updateTradeResult ile tradeResult objesi içinde kontrol yapılarak state'deki purchase, sale, balance state'leri güncelenecek.
+
     uptadeTradeResult(state, payLoad) {
+
+      //İf ile payLoad içerisinde count değeri bulunup bulunmadığı kontrol edilir.
+      // payLoad.count var ise 
+
       if (payLoad.count) {
 
-        state.purchase += parseFloat(payLoad.purchase) * parseInt(payLoad.count);
-        state.sale += parseFloat(payLoad.sale) * parseInt(payLoad.count);
+        //Maliyetin hesaplanması için adet fiyatı ile satın alış fiyatı çarpılıyor
+        console.log(payLoad)
+        state.cost += (payLoad.purchase * payLoad.count);
+        state.sale += payLoad.sale * payLoad.count;
 
-      }else{
 
-        state.purchase += parseFloat(payLoad.purchase) ;
-        state.sale += parseFloat(payLoad.sale) ;
+      } else {
+
+        state.cost += payLoad.purchase;
+        state.sale += parseFloat(payLoad.sale);
 
       }
 
-      state.balance += parseFloat(state.sale) - parseFloat(state.purchase);
-
+      state.balance += parseFloat(state.sale) - parseFloat(state.cost);
     }
   },
 
   actions: {
+
     setTradeResult({ state, commit }, tradeResult) {
+
+      // Mutations'da tanımlı olan uptadeTradeResult'a tradeResult objesi commit edildi.
+      //tradeResult objesinin içinde purchase: product.productPrice, sale: 0, count: product.productPiece var.
+
       commit("uptadeTradeResult", tradeResult);
 
+      //uptadeTradeResult ile state'deki cost,sale ve balance değerleri güncellendi.
+      //Güncellemenin ardından tradeData objesinin içine cost ve sale değerleri atıyor :D 
+
       let tradeData = {
-        purchase: state.purchase,
+        purchase: state.cost,
         sale: state.sale
       }
-      Axios.put("https://urun-ekleme-uygulamasi-default-rtdb.firebaseio.com/products.json", tradeData)
-      // .then(response => {
-      //   console.log(response)
-      // })
+
+      // firebase'e pruchase ve sale değerlerini put metodu ile yolluyoruz
+      Axios.put("https://urun-ekleme-uygulamasi-default-rtdb.firebaseio.com/trade-result.json", tradeData)
+        .then(response => console.log(response))
     },
 
     getTradeResult({ commit }) {
-      Axios.get("https://urun-ekleme-uygulamasi-default-rtdb.firebaseio.com/products.json")
+      Axios.get("https://urun-ekleme-uygulamasi-default-rtdb.firebaseio.com/trade-result.json")
         .then(response => {
-          commit("uptadeTradeResult",response.data)
+          commit("uptadeTradeResult", response.data)
         })
     }
+  },
+  modules: {
+    product
   },
 })
