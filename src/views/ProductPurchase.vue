@@ -44,7 +44,7 @@
         class="btn"
         :class="{ active: !checkInputLength }"
         :disabled="checkInputLength"
-        @click="saved"
+        @click.prevent="saved"
       >
         Kaydet
       </button>
@@ -68,8 +68,18 @@ export default {
   methods: {
     saved() {
       this.wasButtonClicked = true;
-      this.$store.dispatch("saveProduct", this.product);
-      // this.resetInput();
+
+      this.$store.dispatch("product/saveProduct", this.product);
+
+      let tradeResult = {
+        purchase: this.product.productPrice,
+        sale: 0,
+        count: this.product.productPiece,
+      };
+
+      //Actions'da tanımlı olan setTradeResult'a tradeResult objesi dispatch edildi.
+
+      this.$store.dispatch("setTradeResult", tradeResult);
     },
 
     resetInput() {
@@ -132,7 +142,7 @@ export default {
 .urun-islemleri {
   margin: 0;
   padding: 0;
-  height: 600px;
+  min-height: 645px;
 }
 
 .product-form {
