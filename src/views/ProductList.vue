@@ -12,9 +12,6 @@
         </p>
       </div>
     </div>
-    {{ getProductList }}
-    {{this.$store.getters.getMyName}}
-    gkgjh
     <div class="list-table">
       <h2>Ürün Listesi</h2>
       <div class="line"></div>
@@ -28,10 +25,12 @@
         </tr>
         <tbody>
           <tr v-for="(product, index) in getProductList" :key="index">
-            <td>238472847</td>
+            <td>{{ product.key }}</td>
             <td>{{ product.productName }}</td>
-            <td>{{ product.productPiece }}</td>
-            <td class="color">{{ product.productPrice }}</td>
+            <td :class="getCountClasses(product.productPiece)">
+              {{ product.productPiece }}
+            </td>
+            <td class="color">{{ product.productPrice | currency }}</td>
             <td>{{ product.productDescription }}</td>
           </tr>
         </tbody>
@@ -49,14 +48,16 @@ export default {
   //     hasProduct: "",
   //   };
   // },
-  // mounted() {
-  //   if (this.$store.state.productsList.length) {
-  //     this.hasProduct = this.$store.state.productsList;
-  //     this.showMe = false;
-  //   }
-  // },
   computed: {
-    ...mapGetters(["getProductList"]),
+    ...mapGetters("product", ["getProductList"]),
+  },
+  methods: {
+    getCountClasses(value) {
+      return {
+        unsuccessful: value == 0 || value == null,
+        successful: value > 0,
+      };
+    },
   },
 };
 </script>
@@ -65,7 +66,7 @@ export default {
 .urun-listesi {
   margin: 0;
   padding: 0;
-  height: 600px;
+  min-height: 645px;
 }
 h2,
 h5,
@@ -126,5 +127,13 @@ th {
 td {
   padding: 15px;
   background-color: #c7c7c7;
+}
+.successful{
+  background-color: green;
+  color: white;
+}
+.unsuccessful{
+  background-color: red;
+  color: white;
 }
 </style>
